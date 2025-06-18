@@ -1,0 +1,77 @@
+{
+  "name": "fashioncube",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/quintuslabs/fashion-cube"
+  },
+  "keywords": [
+    "fashion",
+    "fashion-cube",
+    "e-commerce",
+    "shopping",
+    "Shopping cart"
+  ],
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/icons-material": "^5.14.13",
+    "@mui/material": "^5.14.13",
+    "@reduxjs/toolkit": "^1.9.6",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "antd": "^5.9.4",
+    "aos": "^3.0.0-beta.6",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
+    "classnames": "^2.2.6",
+    "crypto-js": "^4.1.1",
+    "font-awesome": "^4.7.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.0.0-beta.17",
+    "react-dom": "^16.13.1",
+    "react-form-stepper": "^2.0.3",
+    "react-owl-carousel2": "^0.3.0",
+    "react-redux": "^7.2.0",
+    "react-responsive": "^8.0.3",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.0",
+    "react-step": "^0.4.1",
+    "react-toastify": "^9.0.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "uuid": "^9.0.1",
+    "validator": "^13.11.0",
+    "websocket": "^1.0.34"
+  },
+  "scripts": {
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
