@@ -32,7 +32,7 @@ function OrderHis() {
         try {
 
             const keySearch = User_Side_Enum.USER + "|" + textSearch
-            const userName = (Auth && Auth.getUserDetails() && Auth.getUserDetails().user_Name) ?? ""
+            const userName = (Auth && Auth.getUserDetails() && Auth.getUserDetails().userId) ?? ""
 
             getOrdersByUser(userName, keySearch).then((data) => {
                 console.log(`getOrdersByUser=${JSON.stringify(data)}`);

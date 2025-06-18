@@ -8,6 +8,8 @@ import {
   ADD_TO_CART,
   RESTORE_CART_LOCALSTORAGE,
   REMOVE_FROM_CART,
+  CLEAR_CART,
+ 
 } from "../actions/cartAction";
 
 const initialState = {
@@ -105,7 +107,13 @@ export default (state = initialState, action) => {
         totalPrice: calculateTotalPrice(updatedCart),
       };
     }
-
+    case CLEAR_CART:
+  return {
+    ...state,
+    cartItems: [],
+    totalItems: 0,
+    totalPrice: 0
+  };
     case RESTORE_CART_LOCALSTORAGE:
       if (action.payload) {
         return action.payload;

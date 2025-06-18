@@ -4,7 +4,7 @@ import API from "../myAxios/API";
 export function addOrderNotMember(data) {
   return API({
     method: "POST",
-    url: `/api/order/add-not-member`,
+    url: `/order/add-not-member`,
     data: data,
     // data:{
     //     "order_Id":0,
@@ -37,7 +37,7 @@ export function getOrderByTrackingId(p_user_name, p_tracking_id) {
 
   return API({
     method: "GET",
-    url: `/api/user-side/order/get-tracking?${new URLSearchParams(params)}`,
+    url: `/order/get-tracking?${new URLSearchParams(params)}`,
   })
     .then((res) => {
       return res.data;
@@ -47,22 +47,21 @@ export function getOrderByTrackingId(p_user_name, p_tracking_id) {
     });
 }
 
-export function getOrdersByUser(p_user_name, p_keySearch) {
+export function getOrdersByUser(p_user_id, p_keySearch) {
   const params = {
-    p_user_name: p_user_name,
+    p_user_id: p_user_id,
     keySearch: p_keySearch,
   };
   console.log(`getOrdersByUser=${JSON.stringify(params)}`);
 
   return API({
     method: "GET",
-    url: `/api/user-side/order/get-by-user?${new URLSearchParams(params)}`,
+    url: `/order/get-by-user?${new URLSearchParams(params)}`,
   })
-    .then((res) => {
-      return res.data;
-    })
+    .then((res) => res.data)
     .catch((error) => {
       console.error(error);
       return error;
     });
 }
+

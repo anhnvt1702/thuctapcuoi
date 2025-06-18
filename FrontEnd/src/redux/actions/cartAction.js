@@ -97,6 +97,12 @@ export const restoreCartFromLocalStorage = () => {
     payload: cartData,
   };
 };
+export const clearCart = () => {
+  localStorage.removeItem('cart'); // Nếu bạn dùng localStorage để lưu cart
+  return {
+    type: CLEAR_CART
+  };
+};
 
 
 export const POST_CART_BEGIN = "POST_CART_BEGIN";
@@ -109,3 +115,4 @@ export const GET_CART_BY_USERID_FAIL = "GET_CART_BY_USERID_FAIL";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const RESTORE_CART_LOCALSTORAGE = "RESTORE_CART_LOCALSTORAGE"; 
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART"; 
+export const CLEAR_CART = "CLEAR_CART";

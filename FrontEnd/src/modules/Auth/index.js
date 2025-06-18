@@ -15,7 +15,7 @@ class Auth {
     return this.user?.token;
   }
   getUserId() {
-    return this.user?.user_Id;
+    return this.user?.userId;
   }
 
   getUserDetails() {

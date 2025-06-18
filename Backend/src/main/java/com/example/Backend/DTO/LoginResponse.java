@@ -9,9 +9,10 @@ public class LoginResponse {
     private String status_Text;
     private String avatar;
     private String phone;
+    private Long userId;
 
 
-    public LoginResponse(String token, String user_Name, String full_Name, String email, String status_Text, String avatar, String phone ) {
+    public LoginResponse(String token, String user_Name, String full_Name, String email, String status_Text, String avatar, String phone, Long userId ) {
         this.token = token;
         this.user_Name = user_Name;
         this.full_Name = full_Name;
@@ -19,6 +20,15 @@ public class LoginResponse {
         this.status_Text = status_Text;
         this.avatar = avatar;
         this.phone = phone;
+        this.userId = userId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getToken() {

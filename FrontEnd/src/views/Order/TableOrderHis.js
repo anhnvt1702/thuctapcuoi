@@ -19,11 +19,11 @@ import { IconButton } from '@mui/material'
 import { Order_Status_Enum } from 'utils/commonData'
 import { DateTimeDisplay_1 } from 'utils/commonFunction'
 import styled from '@emotion/styled'
-import OrderHisDetail from './OrderHisDetail'
+import OrderHisDetail from './OrderHisDetail' 
 
 const columns = [
-  { id: 'order_Date', label: 'Thời gian đặt hàng', minWidth: 170, format: (value) => DateTimeDisplay_1(value) },
-  { id: 'order_Status_Text', label: 'Trạng thái', minWidth: 170, setColor: true },
+  { id: 'orderDate', label: 'Thời gian đặt hàng', minWidth: 170, format: (value) => DateTimeDisplay_1(value) },
+  { id: 'order_Status', label: 'Trạng thái', minWidth: 170, setColor: true, format: (value) => getOrderStatusText(value) },
   { id: 'customer_Name', label: 'Khách hàng', minWidth: 200 },
   { id: 'address', label: 'Địa chỉ', minWidth: 200 },
   { id: 'phone', label: 'SĐT', minWidth: 200 },
@@ -33,7 +33,20 @@ const columns = [
 const CustomTablePagination = styled(TablePagination)({
   padding: '0',
 });
+function getOrderStatusText(status) {
+  
 
+  switch (status) {
+    case Order_Status_Enum.DANG_XU_LY:
+      return 'Đang xử lý'
+    case Order_Status_Enum.DA_HUY_BO:
+      return 'Đã huỷ bỏ'
+    case Order_Status_Enum.DA_HOAN_TAT:
+      return 'Đã hoàn tất'
+    default:
+      return 'Không xác định'
+  }
+}
 function GetColor_OrderStatus(status) {
   try {
     console.log(`status=${JSON.stringify(status)}`);
