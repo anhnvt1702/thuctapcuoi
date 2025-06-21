@@ -11,5 +11,7 @@ public interface OrderService {
     Order createOrder(OrderDTO dto);
     List<OrderDTO> getOrdersByUserId(Long userId, String keySearch);
     Optional<Order> getOrderByTrackingId(String trackId);
+    List<OrderDTO> getAllOrders();
+    void updateOrderStatus(Long orderId, String status);
 
 }

@@ -69,5 +69,23 @@ public class OrderController {
         }
     }
 
+    // Lấy danh sách đơn hàng
+    @GetMapping("/admin/orders")
+    public ResponseEntity<List<OrderDTO>> getAllOrders() {
+        List<OrderDTO> orders = orderService.getAllOrders();
+        return ResponseEntity.ok(orders);
+    }
+
+
+    @PutMapping("/{orderId}/status")
+    public ResponseEntity<?> updateOrderStatus(
+            @PathVariable Long orderId,
+            @RequestBody Map<String, String> body
+    ) {
+        String status = body.get("status");
+        orderService.updateOrderStatus(orderId, status);
+        return ResponseEntity.ok(Map.of("message", "Cập nhật trạng thái thành công"));
+    }
+
 }
 

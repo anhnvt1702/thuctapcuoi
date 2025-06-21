@@ -28,12 +28,21 @@ public class User {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+    private int isAdmin;
 
     private String avatar;
     // Getters and Setters
 
     public String getAvatar() {
         return avatar;
+    }
+
+    public int getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(int isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public void setAvatar(String avatar) {

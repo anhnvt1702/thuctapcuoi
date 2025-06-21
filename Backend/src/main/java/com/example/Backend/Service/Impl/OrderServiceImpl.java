@@ -3,7 +3,9 @@ package com.example.Backend.Service.Impl;
 import com.example.Backend.DTO.OrderDTO;
 import com.example.Backend.Entity.Order;
 import com.example.Backend.Entity.OrderDetail;
+import com.example.Backend.Entity.Product;
 import com.example.Backend.Repository.OrderRepository;
+import com.example.Backend.Repository.ProductRepository;
 import com.example.Backend.Service.OrderService;
 import com.example.Backend.Utils.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     public Order createOrder(OrderDTO dto) {
         Order order = new Order();
         order.setCustomerId(dto.getCustomerId());
@@ -36,6 +41,19 @@ public class OrderServiceImpl implements OrderService {
         order.setTrackId(dto.getTrackId());
 
         List<OrderDetail> orderDetails = dto.getOrderDetails().stream().map(detailDTO -> {
+            // Lấy sản phẩm từ DB
+            Product product = productRepository.findByProductId(detailDTO.getProductId())
+                    .orElseThrow(() -> new RuntimeException("Product not found with ID: " + detailDTO.getProductId()));
+
+            // Trừ số lượng
+            int newQuantity = product.getStockQuantity() - detailDTO.getQuantity();
+            if (newQuantity < 0) {
+                throw new RuntimeException("Not enough stock for product ID: " + detailDTO.getProductId());
+            }
+            product.setStockQuantity(newQuantity);
+            productRepository.save(product); // Cập nhật lại vào DB
+
+            // Tạo OrderDetail
             OrderDetail detail = new OrderDetail();
             detail.setProductId(detailDTO.getProductId());
             detail.setQuantity(detailDTO.getQuantity());
@@ -49,6 +67,7 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderDetails(orderDetails);
         return orderRepository.save(order);
     }
+
     @Override
     public List<OrderDTO> getOrdersByUserId(Long userId, String keySearch) {
         List<Order> orders = new ArrayList<>(); // Khởi tạo orders ngay từ đầu
@@ -66,5 +85,23 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findByTrackId(trackId);
     }
 
+    @Override
+    public List<OrderDTO> getAllOrders() {
+        List<Order> orders = orderRepository.findAll();
+        return orders.stream()
+                .map(OrderMapper::toDTO)
+                .collect(Collectors.toList());
+    }
 
+    @Override
+    public void updateOrderStatus(Long orderId, String status) {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+            order.setOrderStatus(status);
+            orderRepository.save(order);
+        } else {
+            throw new RuntimeException("Không tìm thấy đơn hàng với ID: " + orderId);
+        }
+    }
 }

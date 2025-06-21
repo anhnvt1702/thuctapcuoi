@@ -38,5 +38,10 @@ public class ProductController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("/storage")
+    public List<Product> getAllProductsInStock() {
+        return productService.findAll();
+    }
 }
 

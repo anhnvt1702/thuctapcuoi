@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Redirect,
   Route,
-  Switch
+  Switch,
 } from "react-router-dom";
 import { registerNav } from "../modules/Navigation";
 import { createBrowserHistory } from "history";
@@ -12,6 +12,8 @@ import HomeRoutes from "./HomeRoutes";
 import PrivateRoutes from "./PrivateRoutes";
 import Auth from "../modules/Auth";
 import LoadMemory from "utils/memory";
+import AdminRoutes from "Admin/AdminRoutes";
+
 
 const PrivateRouter = ({ component, ...options }) => {
   const finalComponent =
@@ -39,41 +41,53 @@ class Routes extends Component {
       <div>
         <Router ref={registerNav}>
           <Switch>
-            {HomeRoutes.map((homeRoute, index) => {
-              return (
-                <Route
-                  key={index}
-                  path={homeRoute.path}
-                  exact={homeRoute.exact}
-                  component={props => {
-                    return (
-                      <homeRoute.layout {...props}>
-                        <homeRoute.component {...props} />
-                      </homeRoute.layout>
-                    );
-                  }}
-                />
-              );
-            })}
-            {PrivateRoutes.map((privateRoute, index) => {
-              return (
-                <PrivateRouter
-                  key={index}
-                  path={privateRoute.path}
-                  exact={privateRoute.exact}
-                  component={props => {
-                    return (
-                      <privateRoute.layout {...props}>
-                        <privateRoute.component {...props} />
-                      </privateRoute.layout>
-                    );
-                  }}
-                />
-              );
-            })}
-            <Route Redirect to="/PageNotFound" exact component={PageNotFound} />
+            {/* Home (public) routes */}
+            {HomeRoutes.map((homeRoute, index) => (
+              <Route
+                key={index}
+                path={homeRoute.path}
+                exact={homeRoute.exact}
+                component={(props) => (
+                  <homeRoute.layout {...props}>
+                    <homeRoute.component {...props} />
+                  </homeRoute.layout>
+                )}
+              />
+            ))}
+
+            {/* Private user routes */}
+            {PrivateRoutes.map((privateRoute, index) => (
+              <PrivateRouter
+                key={index}
+                path={privateRoute.path}
+                exact={privateRoute.exact}
+                component={(props) => (
+                  <privateRoute.layout {...props}>
+                    <privateRoute.component {...props} />
+                  </privateRoute.layout>
+                )}
+              />
+            ))}
+
+            {/* Admin routes - no shared layout */}
+            {AdminRoutes.map((adminRoute, index) => (
+              <PrivateRouter
+                key={index}
+                path={adminRoute.path}
+                exact={adminRoute.exact}
+                component={(props) => (
+                  <adminRoute.layout {...props}>
+                    <adminRoute.component {...props} />
+                  </adminRoute.layout>
+                )}
+              />
+            ))}
+
+            {/* Fallback 404 */}
+            <Route component={PageNotFound} />
           </Switch>
         </Router>
+
         <LoadMemory></LoadMemory>
       </div>
     );

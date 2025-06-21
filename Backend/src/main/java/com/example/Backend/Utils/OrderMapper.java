@@ -12,7 +12,7 @@ public class OrderMapper {
 
     public static OrderDTO toDTO(Order order) {
         OrderDTO dto = new OrderDTO();
-
+        dto.setOrderId(order.getOrderId());
         dto.setCustomerId(order.getCustomerId());
         dto.setCustomerName(order.getCustomerName());
         dto.setAddress(order.getAddress());

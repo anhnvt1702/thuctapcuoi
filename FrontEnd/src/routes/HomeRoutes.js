@@ -14,6 +14,7 @@ import Tracking from "views/Order/Tracking";
 import ProductDetail from "views/Product/ProductDetail";
 import Account from "views/Account/Account";
 
+
 var routes = [
   {
     path: "/",
@@ -56,6 +57,7 @@ var routes = [
     exact: true,
     component: Account,
   },
+
 ];
 
 export default routes;

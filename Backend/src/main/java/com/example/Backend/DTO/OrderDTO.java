@@ -8,6 +8,7 @@ import java.util.List;
 public class OrderDTO {
     @JsonProperty("customer_Id")
     private Long customerId;
+    private Long orderId;
 
     @JsonProperty("total_Order_Value")
     private BigDecimal totalOrderValue;
@@ -35,6 +36,14 @@ public class OrderDTO {
     private LocalDateTime orderDate;
 
     private List<OrderDetailDTO> orderDetails;
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
 
     public Long getCustomerId() {
         return customerId;

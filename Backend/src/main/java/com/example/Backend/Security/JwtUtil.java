@@ -16,7 +16,6 @@ public class JwtUtil {
 
     @PostConstruct
     public void init() {
-        // Tạo key an toàn đúng chuẩn cho HS512
         this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
     }
 

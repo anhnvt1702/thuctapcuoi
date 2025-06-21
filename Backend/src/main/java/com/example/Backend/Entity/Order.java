@@ -1,11 +1,9 @@
 package com.example.Backend.Entity;
 
-import com.example.Backend.Utils.OrderStatus;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 // Order.java

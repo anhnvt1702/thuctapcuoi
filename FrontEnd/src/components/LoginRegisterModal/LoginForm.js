@@ -34,38 +34,45 @@ class LoginForm extends Component {
 
 
   handleSubmit = () => {
-    const { username, password } = this.state;
-    if (!Validator(username, NAME_RULE)) {
-      showToast('Tên đăng nhập không hợp lệ', 'error');
-      return;
-    }
-    if (!Validator(password, DEFAULT_RULE)) {
-      showToast('Mật khẩu không hợp lệ', 'error');
-      return;
-    }
-    this.setState({ loading: true });
-    this.props
-      .userLogin(username, password)
-      .then(res => {
-        if (res && res.data) {
-          localStorage.setItem("current_user", JSON.stringify(res.data?? ""))
-          this.setState({ loading: false });
+  const { username, password } = this.state;
+  if (!Validator(username, NAME_RULE)) {
+    showToast('Tên đăng nhập không hợp lệ', 'error');
+    return;
+  }
+  if (!Validator(password, DEFAULT_RULE)) {
+    showToast('Mật khẩu không hợp lệ', 'error');
+    return;
+  }
 
-          showToast('Đăng nhập thành công', commonData.success_type);
+  this.setState({ loading: true });
+  this.props
+    .userLogin(username, password)
+    .then(res => {
+      if (res && res.data) {
+        const userData = res.data;
+        localStorage.setItem("current_user", JSON.stringify(userData));
+        this.setState({ loading: false });
 
-          this.props.onhide();
+        showToast('Đăng nhập thành công', commonData.success_type);
+        this.props.onhide();
+
+        // 🔽 Chuyển hướng dựa trên quyền
+        if (userData.isAdmin === 1) {
+          this.props.history.push('/admin');
+        } else {
           this.props.history.push('/');
         }
-        else {
-          this.setState({ loading: false });
-          showToast('Tài khoản hoặc mật khẩu không chính xác', 'error');
-        }
-      })
-      .catch(error => {
-        console.log(error.response);
+      } else {
         this.setState({ loading: false });
-      });
-  };
+        showToast('Tài khoản hoặc mật khẩu không chính xác', 'error');
+      }
+    })
+    .catch(error => {
+      console.log(error.response);
+      this.setState({ loading: false });
+    });
+};
+
 
   render() {
     return (
@@ -111,6 +118,7 @@ class LoginForm extends Component {
             className="log-btn"
             loading={this.state.loading}
             onClick={() => this.handleSubmit()}
+            onKeyPress={this.handleKeyPress} 
           >
             Đăng nhập
           </LoadingButton>

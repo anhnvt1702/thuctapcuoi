@@ -19,14 +19,50 @@ export const commonData = {
     rowPerPage : 20,
 }
 
-export const Order_Status_Enum={
-    DANG_XU_LY : '1',
-    DA_XAC_NHAN: '2',
-    DA_DONG_GOI: '3',
-    DA_HUY_BO: '4',
-    DANG_VAN_CHUYEN:'5',
-    DA_HOAN_TAT : '6'
+export const Order_Status_Enum = {
+  DANG_XU_LY: '1',
+  DA_XAC_NHAN: '2',
+  DA_DONG_GOI: '3',
+  DA_HUY_BO: '4',
+  DANG_VAN_CHUYEN: '5',
+  DA_HOAN_TAT: '6',
+};
+
+export const OrderStatusMeta = {
+  [Order_Status_Enum.DANG_XU_LY]: {
+    label: 'Đang xử lý',
+    color: '#e6b800',
+  },
+  [Order_Status_Enum.DA_XAC_NHAN]: {
+    label: 'Đã xác nhận',
+    color: '#0288d1',
+  },
+  [Order_Status_Enum.DA_DONG_GOI]: {
+    label: 'Đã đóng gói',
+    color: '#8e24aa',
+  },
+  [Order_Status_Enum.DA_HUY_BO]: {
+    label: 'Đã hủy bỏ',
+    color: 'red',
+  },
+  [Order_Status_Enum.DANG_VAN_CHUYEN]: {
+    label: 'Đang vận chuyển',
+    color: '#f57c00',
+  },
+  [Order_Status_Enum.DA_HOAN_TAT]: {
+    label: 'Đã hoàn tất',
+    color: 'green',
+  },
+};
+
+export function getOrderStatusText(status) {
+  return OrderStatusMeta[status]?.label || 'Không xác định';
 }
+
+export function getOrderStatusColor(status) {
+  return OrderStatusMeta[status]?.color || 'gray';
+}
+
 
 export const SettleMethodEnum ={
     COD : '1',

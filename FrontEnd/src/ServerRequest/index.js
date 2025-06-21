@@ -29,7 +29,6 @@ export const register = async (username,full_Name, email, password,phone) => {
       phone
     }
   }).then(res => {
-    // Auth.setUserToken(res.data.user_token);
     console.log(res);
     return res;
   });
